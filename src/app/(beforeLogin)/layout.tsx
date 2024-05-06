@@ -3,5 +3,5 @@ export default function BeforeLoginLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div>로그인 전 {children}</div>;
+  return <div>{children}</div>;
 }
