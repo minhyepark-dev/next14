@@ -1,0 +1,28 @@
+.default {
+  width: 100%;
+}
+
+.medium {
+  width: 50%;
+}
+
+.small {
+  width: 100px;
+}
+
+.line {
+  border: 1px solid var(--color-black);
+  background-color: var(--color-white);
+}
+
+.bgBlack {
+  border: none;
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.bgGreen {
+  border: none;
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
