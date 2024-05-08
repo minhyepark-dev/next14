@@ -1,11 +1,12 @@
-import React from "react";
-import styles from "./Button.module.scss";
+import React from 'react';
+
+import styles from './Button.module.scss';
 
 export default function Button({
   children,
   disabled,
-  width = "default",
-  style = "default",
+  width = 'default',
+  style = 'default',
   className,
 }: {
   children: React.ReactNode;
