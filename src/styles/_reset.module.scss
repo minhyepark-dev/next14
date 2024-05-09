@@ -121,7 +121,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {
@@ -137,7 +137,7 @@ input {
   padding-left: 8px;
   box-sizing: border-box;
   &::placeholder {
-    font-family: "Noto Sans KR", sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     color: var(--color-gray6);
     font-size: var(--font-12);
   }

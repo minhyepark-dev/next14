@@ -1,5 +1,5 @@
-import React from "react";
-import Button from "@/components/button/Button";
+import React from 'react'
+import Button from '@/components/button/Button'
 
 export default function Home() {
   return (
@@ -23,11 +23,11 @@ export default function Home() {
             required
           />
         </div>
-        <Button width="default" style="bgGreen" className="bold">
+        <Button width="default" btnStyle="bgGreen" className="bold">
           로그인
         </Button>
         {/* 추후 소셜 로그인 구글, 카카오 추가 */}
       </form>
     </main>
-  );
+  )
 }
