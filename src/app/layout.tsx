@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import '@/styles/common.scss'
+import Header from '@/layout/Header'
+import Nav from '@/layout/Nav'
 
 export const metadata: Metadata = {
   title: 'Next14 Practice',
@@ -13,7 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="layout">{children}</body>
+      <body className="layout">
+        <Header />
+        {children}
+        <Nav />
+      </body>
     </html>
   )
 }
