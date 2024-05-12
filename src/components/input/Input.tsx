@@ -8,6 +8,8 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name?: string
   placeHolder?: string
   isError?: boolean
+  isRequired?: boolean
+  className?: string
 }
 
 export default function Input({
@@ -18,10 +20,12 @@ export default function Input({
   placeHolder,
   onChange,
   isError = false,
+  isRequired = false,
+  className,
   ...rest
 }: InputProps) {
   return (
-    <div className="inputWrap">
+    <div className={`inputWrap ${className}`}>
       {label && (
         <label htmlFor={label} className={`content2 ${isError ? 'error' : ''}`}>
           {label}
@@ -34,7 +38,7 @@ export default function Input({
         type={type}
         placeholder={placeHolder}
         onChange={onChange}
-        required
+        required={isRequired}
         {...rest}
       />
     </div>
