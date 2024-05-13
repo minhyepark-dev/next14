@@ -2,6 +2,8 @@ import Link from 'next/link'
 import InnerLayout from '@/components/layouts/InnerLayout'
 import Input from '@/components/input/Input'
 import Footer from '@/layout/Footer'
+import CategoryList from '@/components/CategoryList'
+import BannerList from '@/components/BannerList'
 
 export default function Home() {
   return (
@@ -12,55 +14,18 @@ export default function Home() {
           <Input name="search" placeholder="검색어를 입력하세요" />
         </form>
       </InnerLayout>
-      <InnerLayout>
+      <InnerLayout layoutType="swipe">
         <h2 className="hidden">카테고리</h2>
         <div>
           {/* 스와이퍼 사용 */}
-          <ul className="categoryList">
-            <li>
-              <Link href="/fix/list">
-                <img src="https://placehold.co/50x50" alt="카테고리1" />
-              </Link>
-            </li>
-            <li>
-              <Link href="/clean/list">
-                <img src="https://placehold.co/50x50" alt="카테고리2" />
-              </Link>
-            </li>
-            <li>
-              <Link href="/lesson/list">
-                <img src="https://placehold.co/50x50" alt="카테고리3" />
-              </Link>
-            </li>
-            <li>
-              <Link href="/lesson/list">
-                <img src="https://placehold.co/50x50" alt="카테고리3" />
-              </Link>
-            </li>
-            <li>
-              <Link href="/lesson/list">
-                <img src="https://placehold.co/50x50" alt="카테고리3" />
-              </Link>
-            </li>
-          </ul>
+          <CategoryList />
         </div>
       </InnerLayout>
       <InnerLayout layoutType="swipe" borderType="borderBottomBold">
         <h2 className="hidden">배너</h2>
         <div>
           {/* 스와이퍼 사용 */}
-          <ul className="bannerList">
-            <li>
-              <Link href="/fix/list">
-                <img src="https://placehold.co/300x200" alt="배너1" />
-              </Link>
-            </li>
-            {/* <li>
-              <Link href="/clean/list">
-                <img src="https://placehold.co/300x200" alt="배너2" />
-              </Link>
-            </li> */}
-          </ul>
+          <BannerList />
         </div>
       </InnerLayout>
       <InnerLayout>
