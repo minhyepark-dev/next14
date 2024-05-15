@@ -1,4 +1,4 @@
-type LayoutType = 'normal' | 'swipe' | 'full'
+type LayoutType = 'normal' | 'swiper' | 'full'
 
 interface InnerLayoutProps {
   children: React.ReactNode

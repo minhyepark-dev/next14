@@ -56,7 +56,7 @@ export default function Home() {
                   <span className="content2 bold">{item.price}원</span>
                 </p>
               </div>
-              <p>{item.quantity}</p>
+              <p>수량 : {item.quantity}</p>
             </li>
           ))}
         </ul>
