@@ -1,16 +1,12 @@
-'use client'
-
-import { useState } from 'react'
 import Link from 'next/link'
 import InnerLayout from '@/components/layouts/InnerLayout'
 
 export default function Home() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [items, setItems] = useState([
+  const items = [
     { id: 1, name: 'Product 1', price: 2000, date: '2021-10-01' },
     { id: 2, name: 'Product 2', price: 30000, date: '2021-10-02' },
     { id: 3, name: 'Product 3', price: 25000, date: '2021-10-03' },
-  ])
+  ]
   return (
     <main>
       <InnerLayout>
