@@ -8,12 +8,14 @@ export default function Button({
   width = 'default',
   btnStyle = 'default',
   className,
+  onClick,
 }: {
   children: React.ReactNode
   disabled?: boolean
   width?: string
   btnStyle?: string
   className?: string
+  onClick?: () => void
 }) {
   return (
     <button
@@ -22,6 +24,7 @@ export default function Button({
         styles[btnStyle as keyof typeof styles]
       } ${className}`}
       disabled={disabled}
+      onClick={onClick}
     >
       {children}
     </button>

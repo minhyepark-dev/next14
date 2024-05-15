@@ -1,3 +1,5 @@
+import Button from '@/components/button/Button'
+
 type Type = 'text' | 'number' | 'tel' | 'password' | 'email' | 'search'
 type InputValue = string | number
 
@@ -10,6 +12,8 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   isError?: boolean
   isRequired?: boolean
   className?: string
+  isButton?: string
+  onClick?: () => void
 }
 
 export default function Input({
@@ -22,6 +26,8 @@ export default function Input({
   isError = false,
   isRequired = false,
   className,
+  isButton,
+  onClick,
   ...rest
 }: InputProps) {
   return (
@@ -31,16 +37,28 @@ export default function Input({
           {label}
         </label>
       )}
-      <input
-        value={value}
-        id={label}
-        name={name}
-        type={type}
-        placeholder={placeHolder}
-        onChange={onChange}
-        required={isRequired}
-        {...rest}
-      />
+      <div className="inputBox">
+        <input
+          value={value}
+          id={label}
+          name={name}
+          type={type}
+          placeholder={placeHolder}
+          onChange={onChange}
+          required={isRequired}
+          {...rest}
+        />
+        {isButton && (
+          <Button
+            width="small"
+            btnStyle="bgBlack"
+            className="bold"
+            onClick={onClick}
+          >
+            {isButton}
+          </Button>
+        )}
+      </div>
     </div>
   )
 }
