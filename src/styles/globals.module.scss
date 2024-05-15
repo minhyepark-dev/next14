@@ -89,6 +89,11 @@ main {
   background-color: var(--color-white);
   z-index: 10;
   border-bottom: 1px solid var(--color-gray);
+  h1 {
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
 }
 
 // Nav
