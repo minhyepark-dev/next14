@@ -6,7 +6,7 @@ export default function Button({
   children,
   disabled,
   width = 'default',
-  btnStyle = 'default',
+  btnStyle = 'line',
   className,
   onClick,
 }: {
