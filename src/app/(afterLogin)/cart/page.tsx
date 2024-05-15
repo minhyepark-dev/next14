@@ -41,7 +41,7 @@ export default function Home() {
           />
           전체 선택
         </label>
-        <ul className="itemLists">
+        <ul className="itemLists borderBottom">
           {items.map((item) => (
             <li key={item.id}>
               <div>

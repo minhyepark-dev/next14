@@ -225,7 +225,9 @@
 // Cart
 .itemLists {
   margin-bottom: 32px;
-  border-bottom: 3px solid var(--color-gray);
+  &.borderBottom {
+    border-bottom: 3px solid var(--color-gray);
+  }
   li {
     display: flex;
     align-items: center;
@@ -235,7 +237,13 @@
     &:last-of-type {
       margin-bottom: 32px;
     }
-    > div {
+    > a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    div {
       display: flex;
       align-items: center;
       gap: 8px;
