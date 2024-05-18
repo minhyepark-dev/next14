@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import Button from '@/components/button/Button'
 
 type Type = 'text' | 'number' | 'tel' | 'password' | 'email' | 'search'
@@ -14,51 +15,67 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string
   isButton?: string
   onClick?: () => void
+  bottomText?: string
 }
 
-export default function Input({
-  value,
-  type = 'text',
-  label,
-  name,
-  placeHolder,
-  onChange,
-  isError = false,
-  isRequired = false,
-  className,
-  isButton,
-  onClick,
-  ...rest
-}: InputProps) {
-  return (
-    <div className={`inputWrap ${className}`}>
-      {label && (
-        <label htmlFor={label} className={`content2 ${isError ? 'error' : ''}`}>
-          {label}
-        </label>
-      )}
-      <div className="inputBox">
-        <input
-          value={value}
-          id={label}
-          name={name}
-          type={type}
-          placeholder={placeHolder}
-          onChange={onChange}
-          required={isRequired}
-          {...rest}
-        />
-        {isButton && (
-          <Button
-            width="small"
-            btnStyle="bgBlack"
-            className="bold"
-            onClick={onClick}
-          >
-            {isButton}
-          </Button>
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      value,
+      type = 'text',
+      label,
+      name,
+      placeHolder,
+      isError = false,
+      isRequired = false,
+      className,
+      isButton,
+      onClick,
+      bottomText,
+      ...rest
+    },
+    ref,
+  ) => {
+    return (
+      <div className={`inputWrap ${className}`}>
+        {label && (
+          <label htmlFor={label} className="content2">
+            {label}
+          </label>
         )}
+        <div className="inputBox flexColumn">
+          <div className="inputBox">
+            <input
+              ref={ref}
+              value={value}
+              id={label}
+              name={name}
+              type={type}
+              placeholder={placeHolder}
+              required={isRequired}
+              {...rest}
+            />
+            {isButton && (
+              <Button
+                width="small"
+                btnStyle="bgBlack"
+                className="bold"
+                onClick={onClick}
+                disabled={isError}
+              >
+                {isButton}
+              </Button>
+            )}
+          </div>
+          {bottomText && (
+            <p className={`${isError ? 'error' : ''} content3 bottomText`}>
+              {bottomText}
+            </p>
+          )}
+        </div>
       </div>
-    </div>
-  )
-}
+    )
+  },
+)
+
+export default Input
