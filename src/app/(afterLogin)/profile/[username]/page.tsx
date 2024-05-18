@@ -24,6 +24,9 @@ export default function Home() {
           <li>
             <Link href="/profile/username/history">구매 내역</Link>
           </li>
+          <li>
+            <Link href="/profile/username/like">좋아요 내역</Link>
+          </li>
         </ul>
       </InnerLayout>
     </main>
