@@ -4,34 +4,9 @@ import Input from '@/components/input/Input'
 import Footer from '@/layout/Footer'
 import CategoryList from '@/components/CategoryList'
 import BannerList from '@/components/BannerList'
+import ServiceList from '@/components/ServiceList'
 
 export default function Home() {
-  const items = [
-    {
-      id: 1,
-      name: 'Product 1',
-      price: 2000,
-      imgSrc: 'https://placehold.co/150x150',
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      price: 30000,
-      imgSrc: 'https://placehold.co/150x150',
-    },
-    {
-      id: 3,
-      name: 'Product 3',
-      price: 25000,
-      imgSrc: 'https://placehold.co/150x150',
-    },
-    {
-      id: 4,
-      name: 'Product 4',
-      price: 26000,
-      imgSrc: 'https://placehold.co/150x150',
-    },
-  ]
   return (
     <main>
       <InnerLayout borderType="borderBottomThin">
@@ -56,16 +31,7 @@ export default function Home() {
       </InnerLayout>
       <InnerLayout>
         <h2 className="hidden">서비스 목록</h2>
-        <div className="serviceList">
-          {items.map((item) => (
-            <div key={item.id}>
-              <Link href={`/fix/list/${item.id}`}>
-                <img src={item.imgSrc} alt={item.name} />
-                <p className="content2">{item.name}</p>
-              </Link>
-            </div>
-          ))}
-        </div>
+        <ServiceList />
       </InnerLayout>
       <Footer />
     </main>

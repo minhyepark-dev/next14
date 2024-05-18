@@ -200,10 +200,28 @@ main {
   > div {
     display: flex;
     margin-bottom: 16px;
+    position: relative;
     a {
       display: block;
       img {
         margin-bottom: 4px;
+      }
+    }
+  }
+  .likeButton {
+    position: absolute;
+    right: 0;
+    span {
+      color: var(--color-black);
+    }
+    &.liked {
+      span.material-symbols-outlined {
+        color: var(--color-red);
+        font-variation-settings:
+          'FILL' 1,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
       }
     }
   }
@@ -300,6 +318,10 @@ main {
   left: 0;
   button {
     border-radius: 0;
+  }
+  @media (min-width: 768px) {
+    max-width: 500px;
+    margin: 0 auto;
   }
 }
 
