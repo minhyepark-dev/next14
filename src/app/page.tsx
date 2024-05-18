@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import InnerLayout from '@/components/layouts/InnerLayout'
 import Input from '@/components/input/Input'
 import Footer from '@/layout/Footer'

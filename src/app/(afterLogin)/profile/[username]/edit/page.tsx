@@ -41,7 +41,7 @@ export default function Home() {
 
   interface FormData {
     password: string
-    passwordConfirm: string
+    passwordConfirm?: string
   }
   return (
     <main>

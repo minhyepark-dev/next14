@@ -54,7 +54,7 @@ export default function Home() {
     id: string
     email: string
     password: string
-    passwordConfirm: string
+    passwordConfirm?: string
     numberConfirm: string
   }
 
@@ -62,7 +62,6 @@ export default function Home() {
 
   const onClickButton = () => {
     setShowVerificationInput(true)
-    console.log('이메일 인증')
   }
   return (
     <main>
