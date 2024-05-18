@@ -125,6 +125,22 @@ main {
     li {
       display: flex;
       align-items: center;
+      &.cart {
+        position: relative;
+        .cartItems {
+          position: absolute;
+          top: -10px;
+          right: -10px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background-color: var(--color-red);
+          color: var(--color-white);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
       &.active {
         span {
           &.material-symbols-outlined {

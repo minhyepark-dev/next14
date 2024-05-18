@@ -15,9 +15,10 @@ export default function Nav() {
           </Link>
         </li>
         {/* 로그인 한 사람만 카트와 프로필에 접근 가능 */}
-        <li className={pathname === '/cart' ? 'active' : ''}>
+        <li className={`${pathname === '/cart' ? 'active' : ''} cart`}>
           <Link href="/cart">
             <span className="material-symbols-outlined">shopping_cart</span>
+            <span className="cartItems content3">10</span>
           </Link>
         </li>
         <li className={pathname === '/profile/username' ? 'active' : ''}>
