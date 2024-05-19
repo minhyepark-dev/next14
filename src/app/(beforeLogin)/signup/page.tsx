@@ -4,9 +4,10 @@ import { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
-import Button from '@/components/button/Button'
+import { useRouter } from 'next/navigation'
 import Input from '@/components/input/Input'
 import InnerLayout from '@/components/layouts/InnerLayout'
+import Button from '@/components/button/Button'
 
 const schema = yup.object().shape({
   id: yup
@@ -36,6 +37,7 @@ const schema = yup.object().shape({
 })
 
 export default function Home() {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -44,10 +46,37 @@ export default function Home() {
     mode: 'onChange',
     resolver: yupResolver(schema),
   })
+  const [showVerificationInput, setShowVerificationInput] = useState(false)
 
-  const onClickSubmit = (data: FormData) => {
-    // eslint-disable-next-line no-console
-    console.log(data)
+  const onClickButton = () => {
+    setShowVerificationInput(true)
+  }
+
+  const onClickSubmit = async (formData: FormData) => {
+    'use server'
+
+    let shouldRedirect = false
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
+        {
+          method: 'post',
+          body: JSON.stringify(formData),
+          credentials: 'include',
+        },
+      )
+      if (response.status === 403) {
+        return { message: 'user_exists' }
+      }
+      shouldRedirect = true
+    } catch (err) {
+      console.error(err)
+      return null
+    }
+    if (shouldRedirect) {
+      router.push('/')
+    }
+    return null
   }
 
   interface FormData {
@@ -58,11 +87,6 @@ export default function Home() {
     numberConfirm: string
   }
 
-  const [showVerificationInput, setShowVerificationInput] = useState(false)
-
-  const onClickButton = () => {
-    setShowVerificationInput(true)
-  }
   return (
     <main>
       <InnerLayout>
