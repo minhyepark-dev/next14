@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import '@/styles/common.scss'
 import Header from '@/layout/Header'
 import Nav from '@/layout/Nav'
+import { MSWComponent } from './_component/MSWComponent'
 
 export const metadata: Metadata = {
   title: 'Next14 Practice',
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="layout">
+        <MSWComponent />
         <Header />
         {children}
         <Nav />
