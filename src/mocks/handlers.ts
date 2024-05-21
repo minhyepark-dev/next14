@@ -46,4 +46,61 @@ export const handlers = [
       },
     })
   }),
+  http.get('/api/category', () => {
+    console.log('카테고리 ')
+    return HttpResponse.json([
+      { id: 1, name: '카테고리1', image: faker.image.avatar() },
+      { id: 2, name: '카테고리2', image: faker.image.avatar() },
+      { id: 3, name: '카테고리3', image: faker.image.avatar() },
+    ])
+  }),
+  http.get('/api/banners', () => {
+    console.log('배너')
+    return HttpResponse.json([
+      {
+        id: 1,
+        name: '배너1',
+        image: faker.image.urlLoremFlickr({ category: 'advertisement' }),
+      },
+      {
+        id: 2,
+        name: '배너2',
+        image: faker.image.urlLoremFlickr({ category: 'advertisement' }),
+      },
+      {
+        id: 3,
+        name: '배너3',
+        image: faker.image.urlLoremFlickr({ category: 'advertisement' }),
+      },
+    ])
+  }),
+  http.get('/api/services', () => {
+    console.log('서비스리스트')
+    return HttpResponse.json([
+      {
+        id: 1,
+        name: '서비스이름1',
+        price: 2000,
+        image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+      },
+      {
+        id: 2,
+        name: '서비스이름2',
+        price: 20000,
+        image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+      },
+      {
+        id: 3,
+        name: '서비스이름3',
+        price: 35000,
+        image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+      },
+      {
+        id: 4,
+        name: '서비스이름4',
+        price: 26000,
+        image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+      },
+    ])
+  }),
 ]

@@ -4,6 +4,7 @@ import React from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
+import { useFormStatus } from 'react-dom'
 import Button from '@/components/button/Button'
 import Input from '@/components/input/Input'
 import InnerLayout from '@/components/layouts/InnerLayout'
@@ -28,6 +29,7 @@ const schema = yup.object().shape({
 })
 
 export default function Home() {
+  const { pending } = useFormStatus()
   const {
     register,
     handleSubmit,
@@ -75,7 +77,7 @@ export default function Home() {
             width="default"
             btnStyle="bgGreen"
             className="bold"
-            disabled={!isValid}
+            disabled={!isValid || pending}
           >
             로그인
           </Button>

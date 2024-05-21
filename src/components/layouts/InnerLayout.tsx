@@ -15,7 +15,7 @@ export default function InnerLayout({
 }: InnerLayoutProps) {
   return (
     <section
-      className={`innerLayout ${layoutType} ${borderType}`}
+      className={`innerLayout ${layoutType} ${borderType || ''}`}
       style={style}
     >
       {children}

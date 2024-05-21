@@ -1,37 +1,27 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function ServiceList() {
-  const items = [
-    {
-      id: 1,
-      name: 'Product 1',
-      price: 2000,
-      imgSrc: 'https://placehold.co/150x150',
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      price: 30000,
-      imgSrc: 'https://placehold.co/150x150',
-    },
-    {
-      id: 3,
-      name: 'Product 3',
-      price: 25000,
-      imgSrc: 'https://placehold.co/150x150',
-    },
-    {
-      id: 4,
-      name: 'Product 4',
-      price: 26000,
-      imgSrc: 'https://placehold.co/150x150',
-    },
-  ]
-
   const [likedItems, setLikedItems] = useState<number[]>([])
+
+  const [serviceLists, setServiceLists] = useState([])
+  const getServiceLists = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/services`,
+      )
+      const data = await response.json()
+      setServiceLists(data)
+      console.log(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  useEffect(() => {
+    getServiceLists()
+  }, [])
 
   const handleClick = (id: number) => {
     setLikedItems((prev: number[]) =>
@@ -43,21 +33,24 @@ export default function ServiceList() {
 
   return (
     <div className="serviceList">
-      {items.map((item) => (
-        <div key={item.id}>
-          <Link href={`/fix/list/${item.id}`}>
-            <img src={item.imgSrc} alt={item.name} />
-            <p className="content2">{item.name}</p>
-          </Link>
-          <button
-            type="button"
-            className={`likeButton ${likedItems.includes(item.id) ? 'liked' : ''}`}
-            onClick={() => handleClick(item.id)}
-          >
-            <span className="material-symbols-outlined">favorite</span>
-          </button>
-        </div>
-      ))}
+      {serviceLists.map(
+        (item: { id: number; image: string; name: string; price: number }) => (
+          <div key={item.id}>
+            <Link href={`/fix/list/${item.id}`}>
+              <img src={item.image} alt={item.name} />
+              <p className="content1 title">{item.name}</p>
+              <p className="h3 price">{item.price}</p>
+            </Link>
+            <button
+              type="button"
+              className={`likeButton ${likedItems.includes(item.id) ? 'liked' : ''}`}
+              onClick={() => handleClick(item.id)}
+            >
+              <span className="material-symbols-outlined">favorite</span>
+            </button>
+          </div>
+        ),
+      )}
     </div>
   )
 }

@@ -4,9 +4,26 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Scrollbar, Autoplay } from 'swiper/modules'
 import SwiperCore from 'swiper'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 export default function BannerList() {
   SwiperCore.use([Navigation, Scrollbar, Autoplay])
+  const [banners, setBanners] = useState([])
+  const getBanners = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/banners`,
+      )
+      const data = await response.json()
+      setBanners(data)
+      console.log(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  useEffect(() => {
+    getBanners()
+  }, [])
   return (
     <div className="bannerList">
       <Swiper
@@ -18,27 +35,15 @@ export default function BannerList() {
           disableOnInteraction: false, // 사용자 상호작용시 슬라이더 일시 정지 비활성
         }}
       >
-        <SwiperSlide>
-          <div>
-            <Link href="/fix/list">
-              <img src="https://placehold.co/300x200" alt="배너1" />
-            </Link>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div>
-            <Link href="/fix/list">
-              <img src="https://placehold.co/300x200" alt="배너2" />
-            </Link>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div>
-            <Link href="/fix/list">
-              <img src="https://placehold.co/300x200" alt="배너3" />
-            </Link>
-          </div>
-        </SwiperSlide>
+        {banners.map((item: { id: number; image: string; name: string }) => (
+          <SwiperSlide key={item.id}>
+            <div>
+              <Link href="/fix/list">
+                <img src={item.image} alt={item.name} />
+              </Link>
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   )

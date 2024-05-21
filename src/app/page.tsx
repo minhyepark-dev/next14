@@ -14,14 +14,18 @@ export default function Home() {
           <Input name="search" placeholder="검색어를 입력하세요" />
         </form>
       </InnerLayout>
-      <InnerLayout layoutType="swiper">
+      <InnerLayout layoutType="swiper" style={{ paddingBottom: '16px' }}>
         <h2 className="hidden">카테고리</h2>
         <div>
           {/* 스와이퍼 사용 */}
           <CategoryList />
         </div>
       </InnerLayout>
-      <InnerLayout layoutType="swiper" borderType="borderBottomBold">
+      <InnerLayout
+        layoutType="swiper"
+        borderType="borderBottomBold"
+        style={{ paddingTop: '16px' }}
+      >
         <h2 className="hidden">배너</h2>
         <div>
           {/* 스와이퍼 사용 */}
