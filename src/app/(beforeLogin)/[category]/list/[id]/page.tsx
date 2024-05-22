@@ -1,21 +1,39 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
 import Button from '@/components/button/Button'
 import InnerLayout from '@/components/layouts/InnerLayout'
 import CategoryDetailImage from '@/components/CategoryDetailImage'
+import { ProductProps } from '@/@type/product'
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [count, setCount] = useState(1)
-  const product = {
-    id: 1,
-    name: '상품 이름',
-    price: 10000,
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit...',
-    imageUrl: 'https://via.placeholder.com/300',
+  const { id } = useParams()
+  const [detail, setDetail] = useState<ProductProps>({
+    id: '',
+    name: '',
+    price: 0,
+    description: '',
+    images: [],
+  })
+  const getDetail = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/services/detail?id=${id}`,
+      )
+      const data = await response.json()
+      setDetail(data)
+    } catch (error) {
+      console.error(error)
+    }
   }
+  useEffect(() => {
+    getDetail()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
+
   const handleOpenModal = () => {
     setIsModalOpen(true)
   }
@@ -35,16 +53,13 @@ export default function Home() {
   return (
     <main>
       <InnerLayout layoutType="full">
-        {/* <div>
-          <img src={product.imageUrl} alt={product.name} />
-        </div> */}
-        <CategoryDetailImage />
+        <CategoryDetailImage images={detail.images} />
       </InnerLayout>
       <InnerLayout>
         <div className="productInfo">
-          <p className="h2">{product.name}</p>
-          <p className="h3 marginBottom32">{product.price}원</p>
-          <p className="content2">{product.description}</p>
+          <p className="h2">{detail.name}</p>
+          <p className="h3 marginBottom32">{detail.price}원</p>
+          <p className="content2">{detail.description}</p>
         </div>
       </InnerLayout>
       <div className="fixedButton">

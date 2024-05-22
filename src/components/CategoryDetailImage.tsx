@@ -7,7 +7,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-export default function CategoryDetailImage() {
+export default function CategoryDetailImage({ images }: { images: string[] }) {
   SwiperCore.use([Navigation, Scrollbar, Autoplay])
   return (
     <div className="categoryDetailImage">
@@ -19,21 +19,13 @@ export default function CategoryDetailImage() {
           delay: 3000,
         }}
       >
-        <SwiperSlide>
-          <div>
-            <img src="https://placehold.co/400x300" alt="카테고리1" />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div>
-            <img src="https://placehold.co/400x300" alt="카테고리2" />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div>
-            <img src="https://placehold.co/400x300" alt="카테고리3" />
-          </div>
-        </SwiperSlide>
+        {images.map((image, index) => (
+          <SwiperSlide key={image}>
+            <div>
+              <img src={image} alt={`상품 이미지 ${index + 1}`} />
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   )

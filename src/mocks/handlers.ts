@@ -103,4 +103,29 @@ export const handlers = [
       },
     ])
   }),
+  http.get(`/api/services/detail`, ({ request }) => {
+    console.log('서비스상세')
+    const url = new URL(request.url)
+    const id = url.searchParams.get('id')
+    // 가격을 한국 원 단위로 변환하는 함수
+    const formatPriceToKRW = (price: string) => {
+      return `${parseInt(price, 10).toLocaleString('ko-KR')}`
+    }
+
+    // faker에서 가격을 생성하고 원 단위로 변환
+    const price = faker.commerce.price()
+    const priceInKRW = formatPriceToKRW(price)
+    return HttpResponse.json({
+      id,
+      name: faker.commerce.productName(),
+      price: priceInKRW,
+      description: faker.lorem.paragraph(),
+      images: [
+        faker.image.urlLoremFlickr({ category: 'Shoes' }),
+        faker.image.urlLoremFlickr({ category: 'Shoes' }),
+        faker.image.urlLoremFlickr({ category: 'Shoes' }),
+        faker.image.urlLoremFlickr({ category: 'Shoes' }),
+      ],
+    })
+  }),
 ]
