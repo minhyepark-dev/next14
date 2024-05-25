@@ -5,13 +5,13 @@ import { useParams } from 'next/navigation'
 import Button from '@/components/button/Button'
 import InnerLayout from '@/components/layouts/InnerLayout'
 import CategoryDetailImage from '@/components/CategoryDetailImage'
-import { ProductProps } from '@/@type/product'
+import { ProductsProps } from '@/@type/product'
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [count, setCount] = useState(1)
   const { id } = useParams()
-  const [detail, setDetail] = useState<ProductProps>({
+  const [detail, setDetail] = useState<ProductsProps>({
     id: '',
     name: '',
     price: 0,

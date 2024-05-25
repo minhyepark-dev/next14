@@ -2,10 +2,12 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import dayjs from 'dayjs'
 import InnerLayout from '@/components/layouts/InnerLayout'
+import { ProductProps } from '@/@type/product'
 
 export default function Home() {
-  const [histories, setHistories] = useState([])
+  const [histories, setHistories] = useState<ProductProps[]>([])
   const getHistory = async () => {
     try {
       const response = await fetch(
@@ -37,7 +39,9 @@ export default function Home() {
                     <span className="bold">{item.price}원</span>
                   </p>
                 </div>
-                <p className="content2">{item.date}</p>
+                <p className="content2">
+                  {dayjs(item.date).format('YY-MM-DD')}
+                </p>
               </Link>
             </li>
           ))}
