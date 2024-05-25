@@ -82,28 +82,32 @@ export const handlers = [
         name: '서비스이름1',
         price: 2000,
         image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+        like: false,
       },
       {
         id: 2,
         name: '서비스이름2',
         price: 20000,
         image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+        like: false,
       },
       {
         id: 3,
         name: '서비스이름3',
         price: 35000,
         image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+        like: false,
       },
       {
         id: 4,
         name: '서비스이름4',
         price: 26000,
         image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+        like: false,
       },
     ])
   }),
-  http.get(`/api/services/detail`, ({ request }) => {
+  http.get(`/api/services/:id`, ({ request }) => {
     console.log('서비스상세')
     const url = new URL(request.url)
     const id = url.searchParams.get('id')
@@ -127,5 +131,67 @@ export const handlers = [
         faker.image.urlLoremFlickr({ category: 'Shoes' }),
       ],
     })
+  }),
+  http.post('/api/services/:id', async ({ params }) => {
+    const { id } = params
+    console.log(id)
+    console.log('서비스 좋아요')
+    return HttpResponse.json('ok')
+  }),
+  http.delete('/api/services/:id', async ({ params }) => {
+    const { id } = params
+    console.log(id)
+    console.log('서비스 좋아요 취소')
+    return HttpResponse.json('ok')
+  }),
+  http.get(`/api/profile`, () => {
+    console.log('프로필')
+    return HttpResponse.json({
+      id: faker.string.uuid(),
+      name: faker.person.fullName(),
+      email: faker.internet.email(),
+      image: faker.image.avatar(),
+    })
+  }),
+  // 프로필 비밀번호 수정
+  http.post('/api/profile/password', async ({ request }) => {
+    console.log('비밀번호 수정')
+    const { password } = (await request.json()) as { password: string }
+    console.log('New password:', password)
+    return HttpResponse.json('ok')
+  }),
+  // 구매 내역 리스트
+  http.get('/api/history', () => {
+    console.log('구매 내역')
+    return HttpResponse.json([
+      {
+        id: 1,
+        name: '서비스이름1',
+        price: 2000,
+        image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+        date: faker.date.recent(),
+      },
+      {
+        id: 2,
+        name: '서비스이름2',
+        price: 20000,
+        image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+        date: faker.date.recent(),
+      },
+      {
+        id: 3,
+        name: '서비스이름3',
+        price: 35000,
+        image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+        date: faker.date.recent(),
+      },
+      {
+        id: 4,
+        name: '서비스이름4',
+        price: 26000,
+        image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+        date: faker.date.recent(),
+      },
+    ])
   }),
 ]

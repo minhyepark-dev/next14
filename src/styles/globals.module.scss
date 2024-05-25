@@ -286,7 +286,6 @@ main {
     position: relative;
     overflow: hidden;
     display: flex;
-
     img {
       width: 70px;
       height: 70px;
@@ -353,6 +352,11 @@ main {
         display: flex;
         flex-direction: column;
         gap: 4px;
+      }
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
       }
     }
   }

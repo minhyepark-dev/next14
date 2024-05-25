@@ -1,23 +1,37 @@
+'use client'
+
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import InnerLayout from '@/components/layouts/InnerLayout'
 
 export default function Home() {
-  const items = [
-    { id: 1, name: 'Product 1', price: 2000, date: '2021-10-01' },
-    { id: 2, name: 'Product 2', price: 30000, date: '2021-10-02' },
-    { id: 3, name: 'Product 3', price: 25000, date: '2021-10-03' },
-  ]
+  const [histories, setHistories] = useState([])
+  const getHistory = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/history`,
+      )
+      const data = await response.json()
+      setHistories(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  useEffect(() => {
+    getHistory()
+  }, [])
+
   return (
     <main>
       <InnerLayout>
         <h1 className="h1 marginBottom32">구매 내역</h1>
         {/* 구매 내역 리스트 */}
         <ul className="itemLists">
-          {items.map((item) => (
+          {histories.map((item) => (
             <li key={item.id}>
               <Link href={`/profile/username/history/${item.id}`}>
                 <div>
-                  <img src="https://placehold.co/100x100" alt="1" />
+                  <img src={item.image} alt="1" />
                   <p className="content1">
                     <span>{item.name}</span>
                     <span className="bold">{item.price}원</span>

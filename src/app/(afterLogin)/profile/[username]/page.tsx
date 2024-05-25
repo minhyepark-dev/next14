@@ -1,7 +1,29 @@
+'use client'
+
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import InnerLayout from '@/components/layouts/InnerLayout'
 
 export default function Home() {
+  const [profile, setProfile] = useState({
+    name: '',
+    email: '',
+    image: '',
+  })
+  const getProfile = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
+      )
+      const data = await response.json()
+      setProfile(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  useEffect(() => {
+    getProfile()
+  }, [])
   return (
     <main>
       <InnerLayout>
@@ -9,13 +31,13 @@ export default function Home() {
         <div className="profileBox content2">
           <div className="imgEdit">
             <div className="imgWrap">
-              <img src="https://via.placeholder.com/150" alt="프로필 이미지" />
+              <img src={profile.image} alt="프로필 이미지" />
             </div>
             <label htmlFor="image">수정</label>
             <input id="image" type="file" className="hidden" />
           </div>
-          <p>username</p>
-          <p>asdfqwer132@gmail.com</p>
+          <p>{profile.name}</p>
+          <p>{profile.email}</p>
         </div>
         <ul className="profileList">
           <li>

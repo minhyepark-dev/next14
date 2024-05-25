@@ -28,15 +28,39 @@ export default function Home() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   })
 
+  // 비밀번호 변경
+  const postNewPassword = async (password: string) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile/password`,
+        {
+          method: 'post',
+          body: JSON.stringify({ password }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+      const data = await response.json()
+      console.log(data)
+      if (data === 'ok') {
+        alert('비밀번호가 변경되었습니다.')
+        reset()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const onClickSubmit = (data: FormData) => {
-    // eslint-disable-next-line no-console
-    console.log(data)
+    postNewPassword(data.password)
   }
 
   interface FormData {

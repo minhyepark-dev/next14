@@ -21,7 +21,7 @@ export default function Home() {
   const getDetail = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/services/detail?id=${id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/services/${id}`,
       )
       const data = await response.json()
       setDetail(data)
