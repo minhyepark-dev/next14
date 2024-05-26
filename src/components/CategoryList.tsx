@@ -19,28 +19,30 @@ export default function CategoryList() {
       )
       const data = await response.json()
       setCategory(data)
-      console.log(data)
     } catch (error) {
       console.error(error)
     }
   }
   useEffect(() => {
     getCategory()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <div className="categoryList">
       <Swiper
-        loop // 슬라이드 루프
         spaceBetween={0} // 슬라이스 사이 간격
-        slidesPerView={5.3} // 보여질 슬라이스 수
+        slidesPerView={5.5} // 보여질 슬라이스 수
       >
-        {category.map((item: { id: number; image: string; name: string }) => (
+        {category.map((item: { id: string; image: string; name: string }) => (
           <SwiperSlide key={item.id}>
-            <div>
-              <Link href="/fix/list">
-                <img src={item.image} alt={item.name} />
-              </Link>
+            <div className="categoryWrap">
+              <div>
+                <Link href={`${item.id}/list`}>
+                  <img src={item.image} alt={item.name} />
+                </Link>
+              </div>
+              <p className="content2">{item.name}</p>
             </div>
           </SwiperSlide>
         ))}

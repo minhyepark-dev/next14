@@ -49,26 +49,92 @@ export const handlers = [
   http.get('/api/category', () => {
     console.log('카테고리 ')
     return HttpResponse.json([
-      { id: 1, name: '카테고리1', image: faker.image.avatar() },
-      { id: 2, name: '카테고리2', image: faker.image.avatar() },
-      { id: 3, name: '카테고리3', image: faker.image.avatar() },
+      {
+        id: 'sneakers',
+        name: '스니커즈',
+        image: faker.image.urlLoremFlickr({ category: 'sneakers' }),
+      },
+      {
+        id: 'sandal',
+        name: '샌들',
+        image: faker.image.urlLoremFlickr({ category: 'sandal' }),
+      },
+      {
+        id: 'loafer',
+        name: '로퍼',
+        image: faker.image.urlLoremFlickr({ category: 'loafer' }),
+      },
+      {
+        id: 'uggs',
+        name: '어그',
+        image: faker.image.urlLoremFlickr({ category: 'uggs' }),
+      },
+      {
+        id: 'slippers',
+        name: '슬리퍼',
+        image: faker.image.urlLoremFlickr({ category: 'slippers' }),
+      },
+      {
+        id: 'flats',
+        name: '단화',
+        image: faker.image.urlLoremFlickr({ category: 'flats' }),
+      },
+      {
+        id: 'rainboots',
+        name: '장화',
+        image: faker.image.urlLoremFlickr({ category: 'rainboots' }),
+      },
+    ])
+  }),
+  http.get('/api/:category/lists', ({ params }) => {
+    console.log('카테고리 리스트')
+    const { category } = params
+    return HttpResponse.json([
+      {
+        id: 1,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        image: faker.image.urlLoremFlickr({ category: `${category}` }),
+        like: false,
+      },
+      {
+        id: 2,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        image: faker.image.urlLoremFlickr({ category: `${category}` }),
+        like: false,
+      },
+      {
+        id: 3,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        image: faker.image.urlLoremFlickr({ category: `${category}` }),
+        like: false,
+      },
+      {
+        id: 4,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        image: faker.image.urlLoremFlickr({ category: `${category}` }),
+        like: false,
+      },
     ])
   }),
   http.get('/api/banners', () => {
     console.log('배너')
     return HttpResponse.json([
       {
-        id: 1,
+        id: 'loafer',
         name: '배너1',
         image: faker.image.urlLoremFlickr({ category: 'advertisement' }),
       },
       {
-        id: 2,
+        id: 'flats',
         name: '배너2',
         image: faker.image.urlLoremFlickr({ category: 'advertisement' }),
       },
       {
-        id: 3,
+        id: 'sneakers',
         name: '배너3',
         image: faker.image.urlLoremFlickr({ category: 'advertisement' }),
       },
@@ -79,31 +145,64 @@ export const handlers = [
     return HttpResponse.json([
       {
         id: 1,
-        name: '서비스이름1',
-        price: 2000,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
         image: faker.image.urlLoremFlickr({ category: 'Goods' }),
         like: false,
       },
       {
         id: 2,
-        name: '서비스이름2',
-        price: 20000,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
         image: faker.image.urlLoremFlickr({ category: 'Goods' }),
         like: false,
       },
       {
         id: 3,
-        name: '서비스이름3',
-        price: 35000,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
         image: faker.image.urlLoremFlickr({ category: 'Goods' }),
         like: false,
       },
       {
         id: 4,
-        name: '서비스이름4',
-        price: 26000,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
         image: faker.image.urlLoremFlickr({ category: 'Goods' }),
         like: false,
+      },
+    ])
+  }),
+  http.get('/api/services/like', () => {
+    console.log('좋아요 리스트')
+    return HttpResponse.json([
+      {
+        id: 1,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+        like: true,
+      },
+      {
+        id: 2,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+        like: true,
+      },
+      {
+        id: 3,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+        like: true,
+      },
+      {
+        id: 4,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+        like: true,
       },
     ])
   }),
@@ -111,18 +210,11 @@ export const handlers = [
     console.log('서비스상세')
     const url = new URL(request.url)
     const id = url.searchParams.get('id')
-    // 가격을 한국 원 단위로 변환하는 함수
-    const formatPriceToKRW = (price: string) => {
-      return `${parseInt(price, 10).toLocaleString('ko-KR')}`
-    }
 
-    // faker에서 가격을 생성하고 원 단위로 변환
-    const price = faker.commerce.price()
-    const priceInKRW = formatPriceToKRW(price)
     return HttpResponse.json({
       id,
       name: faker.commerce.productName(),
-      price: priceInKRW,
+      price: faker.commerce.price(),
       description: faker.lorem.paragraph(),
       images: [
         faker.image.urlLoremFlickr({ category: 'Shoes' }),
@@ -134,14 +226,12 @@ export const handlers = [
   }),
   http.post('/api/services/:id', async ({ params }) => {
     const { id } = params
-    console.log(id)
-    console.log('서비스 좋아요')
+    console.log(`${id}서비스 좋아요`)
     return HttpResponse.json('ok')
   }),
   http.delete('/api/services/:id', async ({ params }) => {
     const { id } = params
-    console.log(id)
-    console.log('서비스 좋아요 취소')
+    console.log(`${id}서비스 좋아요 취소`)
     return HttpResponse.json('ok')
   }),
   http.get(`/api/profile`, () => {
@@ -161,37 +251,75 @@ export const handlers = [
     return HttpResponse.json('ok')
   }),
   // 구매 내역 리스트
-  http.get('/api/history', () => {
+  http.get('/api/histories', () => {
     console.log('구매 내역')
     return HttpResponse.json([
       {
         id: 1,
-        name: '서비스이름1',
-        price: 2000,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
         image: faker.image.urlLoremFlickr({ category: 'Goods' }),
         date: faker.date.recent(),
       },
       {
         id: 2,
-        name: '서비스이름2',
-        price: 20000,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
         image: faker.image.urlLoremFlickr({ category: 'Goods' }),
         date: faker.date.past(),
       },
       {
         id: 3,
-        name: '서비스이름3',
-        price: 35000,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
         image: faker.image.urlLoremFlickr({ category: 'Goods' }),
         date: faker.date.past(),
       },
       {
         id: 4,
-        name: '서비스이름4',
-        price: 26000,
+        name: faker.commerce.productName(),
+        price: faker.commerce.price(),
         image: faker.image.urlLoremFlickr({ category: 'Goods' }),
         date: faker.date.past(),
       },
     ])
+  }),
+  // 구매 내역 상세
+  http.get('/api/history/:id', ({ params }) => {
+    const { id } = params
+    console.log('구매 내역 상세')
+    return HttpResponse.json({
+      id: 1,
+      name: `서비스이름 ${id}`,
+      price: {
+        totalProductPrice: faker.commerce.price(),
+        totalDeliveryPrice: faker.commerce.price(),
+        totalPrice: faker.commerce.price(),
+      },
+      date: faker.date.past(),
+      products: [
+        {
+          id: 1,
+          name: faker.commerce.productName(),
+          price: faker.commerce.price(),
+          image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+          quantity: 1,
+        },
+        {
+          id: 2,
+          name: faker.commerce.productName(),
+          price: faker.commerce.price(),
+          image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+          quantity: 2,
+        },
+        {
+          id: 3,
+          name: faker.commerce.productName(),
+          price: faker.commerce.price(),
+          image: faker.image.urlLoremFlickr({ category: 'Goods' }),
+          quantity: 4,
+        },
+      ],
+    })
   }),
 ]

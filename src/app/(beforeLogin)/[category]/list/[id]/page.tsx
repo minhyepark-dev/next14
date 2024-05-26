@@ -6,13 +6,14 @@ import Button from '@/components/button/Button'
 import InnerLayout from '@/components/layouts/InnerLayout'
 import CategoryDetailImage from '@/components/CategoryDetailImage'
 import { ProductsProps } from '@/@type/product'
+import { formatPriceToKRW } from '@/utils/convert'
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [count, setCount] = useState(1)
   const { id } = useParams()
   const [detail, setDetail] = useState<ProductsProps>({
-    id: '',
+    id: 0,
     name: '',
     price: 0,
     description: '',
@@ -58,7 +59,9 @@ export default function Home() {
       <InnerLayout>
         <div className="productInfo">
           <p className="h2">{detail.name}</p>
-          <p className="h3 marginBottom32">{detail.price}원</p>
+          <p className="h3 marginBottom32">
+            {formatPriceToKRW(detail.price)}원
+          </p>
           <p className="content2">{detail.description}</p>
         </div>
       </InnerLayout>

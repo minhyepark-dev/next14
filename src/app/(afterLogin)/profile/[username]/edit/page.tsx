@@ -49,7 +49,6 @@ export default function Home() {
         },
       )
       const data = await response.json()
-      console.log(data)
       if (data === 'ok') {
         alert('비밀번호가 변경되었습니다.')
         reset()

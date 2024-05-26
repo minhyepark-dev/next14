@@ -16,7 +16,6 @@ export default function BannerList() {
       )
       const data = await response.json()
       setBanners(data)
-      console.log(data)
     } catch (error) {
       console.error(error)
     }
@@ -35,10 +34,10 @@ export default function BannerList() {
           disableOnInteraction: false, // 사용자 상호작용시 슬라이더 일시 정지 비활성
         }}
       >
-        {banners.map((item: { id: number; image: string; name: string }) => (
+        {banners.map((item: { id: string; image: string; name: string }) => (
           <SwiperSlide key={item.id}>
             <div>
-              <Link href="/fix/list">
+              <Link href={`/${item.id}/list`}>
                 <img src={item.image} alt={item.name} />
               </Link>
             </div>

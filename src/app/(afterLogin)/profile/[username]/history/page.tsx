@@ -2,16 +2,16 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import dayjs from 'dayjs'
 import InnerLayout from '@/components/layouts/InnerLayout'
 import { ProductProps } from '@/@type/product'
+import { formatDateYYMMDD, formatPriceToKRW } from '@/utils/convert'
 
 export default function Home() {
   const [histories, setHistories] = useState<ProductProps[]>([])
-  const getHistory = async () => {
+  const getHistories = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/history`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/histories`,
       )
       const data = await response.json()
       setHistories(data)
@@ -20,7 +20,7 @@ export default function Home() {
     }
   }
   useEffect(() => {
-    getHistory()
+    getHistories()
   }, [])
 
   return (
@@ -36,12 +36,12 @@ export default function Home() {
                   <img src={item.image} alt="1" />
                   <p className="content1">
                     <span>{item.name}</span>
-                    <span className="bold">{item.price}원</span>
+                    <span className="bold">
+                      {formatPriceToKRW(item.price)}원
+                    </span>
                   </p>
                 </div>
-                <p className="content2">
-                  {dayjs(item.date).format('YY-MM-DD')}
-                </p>
+                <p className="content2">{formatDateYYMMDD(item.date)}</p>
               </Link>
             </li>
           ))}

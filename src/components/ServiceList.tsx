@@ -1,24 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useParams } from 'next/navigation'
+import { Service, ServiceListProps } from '@/@type/product'
+import { formatPriceToKRW } from '@/utils/convert'
 
-export default function ServiceList() {
+export default function ServiceList({ data }: ServiceListProps) {
+  console.log(data)
   const [likedItems, setLikedItems] = useState<number[]>([])
+  const { category } = useParams()
 
-  const [serviceLists, setServiceLists] = useState([])
-  // 리스트 가지고 오기
-  const getServiceLists = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/services`,
-      )
-      const data = await response.json()
-      setServiceLists(data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
   // 좋아요 눌렀을 때
   const postServiceLike = async (id: number) => {
     try {
@@ -32,8 +24,8 @@ export default function ServiceList() {
           },
         },
       )
-      const data = await response.json()
-      console.log(data)
+      const result = await response.json()
+      console.log(result)
     } catch (error) {
       console.error(error)
     }
@@ -52,16 +44,12 @@ export default function ServiceList() {
           },
         },
       )
-      const data = await response.json()
-      console.log(data)
+      const result = await response.json()
+      console.log(result)
     } catch (error) {
       console.error(error)
     }
   }
-
-  useEffect(() => {
-    getServiceLists()
-  }, [])
 
   const handleClick = (id: number) => {
     setLikedItems((prev: number[]) => {
@@ -76,30 +64,22 @@ export default function ServiceList() {
 
   return (
     <div className="serviceList">
-      {serviceLists.map(
-        (item: {
-          id: number
-          image: string
-          name: string
-          price: number
-          like: boolean
-        }) => (
-          <div key={item.id}>
-            <Link href={`/fix/list/${item.id}`}>
-              <img src={item.image} alt={item.name} />
-              <p className="content1 title">{item.name}</p>
-              <p className="h3 price">{item.price}</p>
-            </Link>
-            <button
-              type="button"
-              className={`likeButton ${likedItems.includes(item.id) ? 'liked' : ''} ${item.like ? 'liked' : ''}`}
-              onClick={() => handleClick(item.id)}
-            >
-              <span className="material-symbols-outlined">favorite</span>
-            </button>
-          </div>
-        ),
-      )}
+      {data.map((item: Service) => (
+        <div key={item.id}>
+          <Link href={`/${category}/list/${item.id}`}>
+            <img src={item.image} alt={item.name} />
+            <p className="content1 title">{item.name}</p>
+            <p className="h3 price">{formatPriceToKRW(item.price)}원</p>
+          </Link>
+          <button
+            type="button"
+            className={`likeButton ${likedItems.includes(item.id) ? 'liked' : ''} ${item.like ? 'liked' : ''}`}
+            onClick={() => handleClick(item.id)}
+          >
+            <span className="material-symbols-outlined">favorite</span>
+          </button>
+        </div>
+      ))}
     </div>
   )
 }
