@@ -22,7 +22,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.4",
     "swiper": "^11.1.2",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@mswjs/http-middleware": "^0.10.1",
