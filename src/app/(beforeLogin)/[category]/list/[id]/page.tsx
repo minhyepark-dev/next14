@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
+// import { useStore } from 'zustand'
 import Button from '@/components/button/Button'
 import InnerLayout from '@/components/layouts/InnerLayout'
 import CategoryDetailImage from '@/components/CategoryDetailImage'
 import { ProductsProps } from '@/@type/product'
 import { formatPriceToKRW } from '@/utils/convert'
+// import userPersist from '@/store/persist'
 
 export default function Home() {
+  // const { setCart, cart } = useStore(userPersist)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [count, setCount] = useState(1)
   const { id } = useParams()
@@ -36,6 +39,7 @@ export default function Home() {
   }, [id])
 
   const handleOpenModal = () => {
+    alert('구매하기')
     setIsModalOpen(true)
   }
 
@@ -50,6 +54,10 @@ export default function Home() {
   const decrement = () => {
     setCount(count - 1)
   }
+  // const handleOnClick = () => {
+  //   // setCart([...cart, detail])
+  //   console.log('handleOnClick')
+  // }
 
   return (
     <main>
@@ -90,7 +98,13 @@ export default function Home() {
               </dl>
             </div>
             <div className="buttonWrap">
-              <Button width="medium" btnStyle="line">
+              <Button
+                width="medium"
+                btnStyle="line"
+                onClick={() => {
+                  console.log('호호')
+                }}
+              >
                 장바구니
               </Button>
               <Button width="medium" btnStyle="bgBlack">
