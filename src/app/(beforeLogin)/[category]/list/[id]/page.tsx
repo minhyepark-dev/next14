@@ -51,6 +51,10 @@ export default function Home() {
     setCount(count - 1)
   }
 
+  const handleAddCart = () => {
+    console.log('장바구니 추가')
+  }
+
   return (
     <main>
       <InnerLayout layoutType="full">
@@ -90,7 +94,7 @@ export default function Home() {
               </dl>
             </div>
             <div className="buttonWrap">
-              <Button width="medium" btnStyle="line">
+              <Button width="medium" btnStyle="line" onClick={handleAddCart}>
                 장바구니
               </Button>
               <Button width="medium" btnStyle="bgBlack">
