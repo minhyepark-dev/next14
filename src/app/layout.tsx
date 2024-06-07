@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className="layout">
         <MSWComponent />
         <Header />
-        {children}
+        <ReactQueryProviders>{children}</ReactQueryProviders>
         <Nav />
       </body>
     </html>
