@@ -3,6 +3,7 @@ import '@/styles/common.scss'
 import Header from '@/layout/Header'
 import Nav from '@/layout/Nav'
 import { MSWComponent } from './_component/MSWComponent'
+import ReactQueryProviders from '@/hooks/useReactQuery'
 
 export const metadata: Metadata = {
   title: 'Next14 Practice',
